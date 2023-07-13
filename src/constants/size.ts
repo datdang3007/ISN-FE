@@ -1,3 +1,3 @@
 export enum BASE_SIZE {
-  HEADER = 55,
+  HEADER = 45,
 }

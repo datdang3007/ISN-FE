@@ -1,11 +1,7 @@
 import { Typography } from "@mui/material";
-import { ControllerFieldState } from "react-hook-form";
+import { FormHelpTextProps } from "../../types/Form";
 
-interface Props {
-  fieldState: ControllerFieldState;
-}
-
-export const FormHelpText = ({ fieldState }: Props) => {
+export const FormHelpText = ({ fieldState }: FormHelpTextProps) => {
   return (
     <>
       {fieldState.error ? (

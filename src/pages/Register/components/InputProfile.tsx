@@ -12,6 +12,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import InputTextField from "../../../components/Form/InputTextField";
 import LogoImg from "../../../assets/Logo_Light_Basic.png";
 import { useCallback } from "react";
+// import { useNavigateSearch } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
 
 interface InputProfileProps {
@@ -37,13 +38,19 @@ export default function InputProfile({
     },
   });
 
-  const handleSubmit = useCallback(
-    (values: any) => {
-      const { Image, user_name } = values;
-      console.log("input email", Image, user_name);
-      navigate("/login");
-    },
-    [navigate]
+  const onSubmit = methods.handleSubmit(
+    useCallback(
+      (values: any) => {
+        const { Image, user_name } = values;
+        console.log("profile", Image, user_name);
+
+        const data = { user_email: userEmail, user_password: userPassword };
+        const JsonData = JSON.stringify(data);
+        localStorage.setItem("RegisterInfo", JsonData);
+        navigate("/login");
+      },
+      [navigate, userEmail, userPassword]
+    )
   );
 
   const changeDirectionToLoginPage = useCallback(() => {
@@ -52,11 +59,7 @@ export default function InputProfile({
 
   return (
     <FormProvider {...methods}>
-      <Container
-        maxWidth="xs"
-        component={"form"}
-        onSubmit={methods.handleSubmit(handleSubmit)}
-      >
+      <Container maxWidth="xs" component={"form"} onSubmit={onSubmit}>
         <Body>
           <CardForm>
             <Grid container>

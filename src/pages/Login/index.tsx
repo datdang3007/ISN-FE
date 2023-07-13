@@ -10,7 +10,7 @@ import {
   styled,
 } from "@mui/material";
 import { useTheme } from "@mui/system";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,19 @@ export default function Login() {
   const theme = useTheme();
   const { validateEmail, validatePassword } = rules;
   const [showPassword, setShowPassword] = useState(false);
+
+  const defaultValuesLogin = useMemo(() => {
+    let result = {
+      user_email: "",
+      user_password: "",
+    };
+    const keyVal = localStorage.getItem("RegisterInfo");
+    if (keyVal) {
+      result = JSON.parse(keyVal) as LoginProps;
+    }
+    console.log(result);
+    return result;
+  }, []);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -51,10 +64,7 @@ export default function Login() {
   }, [navigate]);
 
   const methods = useForm<LoginProps>({
-    defaultValues: {
-      user_email: "",
-      user_password: "",
-    },
+    defaultValues: defaultValuesLogin,
   });
 
   return (

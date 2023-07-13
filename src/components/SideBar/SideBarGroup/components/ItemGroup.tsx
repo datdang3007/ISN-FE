@@ -1,15 +1,13 @@
 import { Box, CardMedia, Grid, styled } from "@mui/material";
-import { useMemo } from "react";
-import { IMAGE_DEFAULT } from "../../constants";
-import { BASE_COLOR } from "../../constants/color";
-import theme from "../../theme";
+import { useCallback, useMemo } from "react";
+import { IMAGE_DEFAULT } from "../../../../constants";
+import { BASE_COLOR } from "../../../../constants/color";
+import { ItemSideBarGroupProps } from "../../../../types/SideBar";
 
-interface ItemChannelProps {
-  image?: string;
-  isActive?: string;
-}
-
-export default function ItemChannel({ image, isActive }: ItemChannelProps) {
+export default function ItemGroup({id,
+  image,
+  isActive,
+  ChangeChannelList,}: ItemSideBarGroupProps) {
   image = useMemo(() => {
     return image ? image : IMAGE_DEFAULT.EMPTY_IMAGE_LOGO;
   }, [image]);
@@ -18,9 +16,17 @@ export default function ItemChannel({ image, isActive }: ItemChannelProps) {
     return isActive ? "active" : "";
   }, [isActive]);
 
+  const onClick = useCallback(() => {
+    ChangeChannelList(id);
+  }, [ChangeChannelList, id]);
+
   return (
     <ChannelItem item xs={12}>
-      <BoxImage className={isActive} sx={{ background: "#FFF" }}>
+      <BoxImage
+        className={isActive}
+        sx={{ background: BASE_COLOR.primary }}
+        onClick={onClick}
+      >
         <Image image={image} />
       </BoxImage>
     </ChannelItem>
