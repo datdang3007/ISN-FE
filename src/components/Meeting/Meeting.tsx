@@ -30,7 +30,7 @@ export const Meeting = () => {
   );
 
   const handleClickButtonCreateMeeting = useCallback(() => {
-    fetch("http://localhost:4000/create-meeting", {
+    fetch("https://isn-server-063f59ef0ea2.herokuapp.com/create-meeting", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,15 +53,18 @@ export const Meeting = () => {
     useCallback(
       (values) => {
         const methodsValueMeetingCode = values.meeting_code;
-        fetch("http://localhost:4000/join-meeting-room", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            meetingCode: methodsValueMeetingCode,
-          }),
-        })
+        fetch(
+          "https://isn-server-063f59ef0ea2.herokuapp.com/join-meeting-room",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              meetingCode: methodsValueMeetingCode,
+            }),
+          }
+        )
           .then((response) => response.json())
           .then((data) => {
             const isMeetingRoomExist = data.isExist;
