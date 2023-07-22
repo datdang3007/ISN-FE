@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, styled, useTheme } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { socket } from "../..";
 import { BASE_COLOR } from "../../constants/color";
 import { Toast } from "../../utils/alert";
@@ -11,79 +11,138 @@ interface ContentProps {
 
 export const ContentGroupChat = () => {
   const theme = useTheme();
-  const content = useRef<HTMLDivElement>(null);
   const [chatContent, setChatContent] = useState<ContentProps[]>([
     {
       name: "DatDT",
-      message: "test message",
+      message: "Tôi là Đạt",
     },
     {
       name: "LongVM",
-      message: "test message",
+      message: "Tôi là Long",
     },
     {
       name: "HungND",
-      message: "test message",
+      message: "Tôi là Hùng",
     },
     {
       name: "DatDT",
-      message: "test message",
+      message: "Tôi là Đạt",
     },
     {
       name: "LongVM",
-      message: "test message",
+      message: "Tôi là Long",
     },
     {
       name: "HungND",
-      message: "test message",
+      message: "Tôi là Hùng",
     },
     {
       name: "DatDT",
-      message: "test message",
+      message: "Tôi là Đạt",
     },
     {
       name: "LongVM",
-      message: "test message",
+      message: "Tôi là Long",
     },
     {
       name: "HungND",
-      message: "test message",
+      message: "Tôi là Hùng",
     },
     {
       name: "DatDT",
-      message: "test message",
+      message: "Tôi là Đạt",
     },
     {
       name: "LongVM",
-      message: "test message",
+      message: "Tôi là Long",
     },
     {
       name: "HungND",
-      message: "test message",
+      message: "Tôi là Hùng",
     },
     {
       name: "DatDT",
-      message: "test message",
+      message: "Tôi là Đạt",
     },
     {
       name: "LongVM",
-      message: "test message",
+      message: "Tôi là Long",
     },
     {
       name: "HungND",
-      message: "test message",
+      message: "Tôi là Hùng",
     },
     {
       name: "DatDT",
-      message: "test message",
+      message: "Tôi là Đạt",
     },
     {
       name: "LongVM",
-      message: "test message",
+      message: "Tôi là Long",
     },
     {
       name: "HungND",
-      message: "test message",
+      message: "Tôi là Hùng",
+    },
+    {
+      name: "DatDT",
+      message: "Tôi là Đạt",
+    },
+    {
+      name: "LongVM",
+      message: "Tôi là Long",
+    },
+    {
+      name: "HungND",
+      message: "Tôi là Hùng",
+    },
+    {
+      name: "DatDT",
+      message: "Tôi là Đạt",
+    },
+    {
+      name: "LongVM",
+      message: "Tôi là Long",
+    },
+    {
+      name: "HungND",
+      message: "Tôi là Hùng",
+    },
+    {
+      name: "DatDT",
+      message: "Tôi là Đạt",
+    },
+    {
+      name: "LongVM",
+      message: "Tôi là Long",
+    },
+    {
+      name: "HungND",
+      message: "Tôi là Hùng",
+    },
+    {
+      name: "DatDT",
+      message: "Tôi là Đạt",
+    },
+    {
+      name: "LongVM",
+      message: "Tôi là Long",
+    },
+    {
+      name: "HungND",
+      message: "Tôi là Hùng",
+    },
+    {
+      name: "DatDT",
+      message: "Tôi là Đạt",
+    },
+    {
+      name: "LongVM",
+      message: "Tôi là Long",
+    },
+    {
+      name: "HungND",
+      message: "Tôi là Hùng",
     },
   ]);
 
@@ -97,11 +156,6 @@ export const ContentGroupChat = () => {
     };
 
     socket.on("user-chat", handleUserChat);
-
-    setTimeout(() => {
-      if (content.current)
-        content.current.scrollIntoView({ behavior: "smooth", block: "end" });
-    }, 300);
 
     return () => {
       socket.off("user-chat", handleUserChat);
@@ -141,7 +195,7 @@ export const ContentGroupChat = () => {
   }, [chatContent, theme.palette.common.black]);
 
   return (
-    <ChatContainer container ref={content}>
+    <ChatContainer container>
       <Grid item container alignItems={"flex-end"}>
         <Grid item container rowGap={20} xs={12}>
           {renderContent()}

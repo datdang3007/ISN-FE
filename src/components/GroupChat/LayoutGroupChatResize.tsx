@@ -2,12 +2,18 @@ import { Grid, styled } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LayoutGroupChatResizeProps } from "../../types";
 import { BASE_SIZE } from "../../constants/size";
+import { scrollToEndElement } from "../../utils/common";
+import { socket } from "../..";
 
 export const LayoutGroupChatResize = (props: LayoutGroupChatResizeProps) => {
   const { Header, children, ChatBox } = props;
 
   const divHeaderRef = useRef<HTMLDivElement>(null);
   const divChatBoxRef = useRef<HTMLDivElement>(null);
+
+  const containerContent = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLDivElement>(null);
+  const [isAtBottom, setIsAtBottom] = useState(false);
 
   const [headerHeight, setHeaderHeight] = useState(0);
   const [chatBoxHeight, setChatBoxHeight] = useState(0);
@@ -27,6 +33,10 @@ export const LayoutGroupChatResize = (props: LayoutGroupChatResizeProps) => {
   }, []);
 
   useEffect(() => {
+    const parentElement = containerContent.current;
+    const childrenElement = content.current;
+
+    // RESIZE EVENT:
     const handleResize = () => {
       handleHeaderHeight();
       handleChatBoxHeight();
@@ -39,15 +49,63 @@ export const LayoutGroupChatResize = (props: LayoutGroupChatResizeProps) => {
       }
     }, 200);
     window.addEventListener("resize", handleResize);
+
+    // SCROLL EVENT:
+    function handleScroll() {
+      if (parentElement && childrenElement) {
+        const isBottom =
+          parentElement.scrollTop + parentElement.clientHeight >=
+          childrenElement.clientHeight - 60;
+        console.log(isBottom);
+        setIsAtBottom(isBottom);
+      }
+    }
+    if (parentElement) {
+      parentElement.addEventListener("scroll", handleScroll);
+    }
+
+    const handleUserChatScroll = (id: string) => {
+      if (socket.id === id) {
+        setTimeout(() => {
+          scrollToEndElement(content.current);
+        }, 300);
+        return;
+      }
+      if (isAtBottom) {
+        setTimeout(() => {
+          scrollToEndElement(content.current);
+        }, 300);
+      }
+    };
+    socket.on("user-chat", handleUserChatScroll);
+
+    window.addEventListener("load", () =>
+      setTimeout(() => {
+        scrollToEndElement(content.current);
+      }, 300)
+    );
+
     return () => {
+      // RESIZE:
       window.removeEventListener("resize", handleHeaderHeight);
       window.removeEventListener("resize", handleChatBoxHeight);
       if (divChatBoxRef.current) {
         resizeObserver.unobserve(divChatBoxRef.current);
       }
       resizeObserver.disconnect();
+
+      // SCROLL:
+      socket.off("user-chat", handleUserChatScroll);
+      window.removeEventListener("load", () =>
+        setTimeout(() => {
+          scrollToEndElement(content.current);
+        }, 300)
+      );
+      if (parentElement) {
+        parentElement.removeEventListener("scroll", handleScroll);
+      }
     };
-  }, [handleChatBoxHeight, handleHeaderHeight]);
+  }, [handleChatBoxHeight, handleHeaderHeight, isAtBottom]);
 
   return (
     <>
@@ -58,8 +116,9 @@ export const LayoutGroupChatResize = (props: LayoutGroupChatResizeProps) => {
         sx={{
           height: `calc(100vh - ${headerHeight}px - ${chatBoxHeight}px - ${BASE_SIZE.HEADER}px)`,
         }}
+        ref={containerContent}
       >
-        {children}
+        <div ref={content}>{children}</div>
       </ContentContainer>
       <div ref={divChatBoxRef}>{ChatBox}</div>
     </>

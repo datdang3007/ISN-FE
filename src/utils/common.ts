@@ -5,3 +5,8 @@ export const getUrlSearchParams = (param: string) => {
 
   return value
 }
+
+export const scrollToEndElement = (element: HTMLDivElement | null) => {
+  if (element)
+    element.scrollIntoView({ behavior: "smooth", block: "end" });
+};
