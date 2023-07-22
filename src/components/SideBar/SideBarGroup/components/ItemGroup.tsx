@@ -4,10 +4,12 @@ import { IMAGE_DEFAULT } from "../../../../constants";
 import { BASE_COLOR } from "../../../../constants/color";
 import { ItemSideBarGroupProps } from "../../../../types/SideBar";
 
-export default function ItemGroup({id,
+export default function ItemGroup({
+  id,
   image,
   isActive,
-  ChangeChannelList,}: ItemSideBarGroupProps) {
+  ChangeChannelList,
+}: ItemSideBarGroupProps) {
   image = useMemo(() => {
     return image ? image : IMAGE_DEFAULT.EMPTY_IMAGE_LOGO;
   }, [image]);
@@ -22,11 +24,7 @@ export default function ItemGroup({id,
 
   return (
     <ChannelItem item xs={12}>
-      <BoxImage
-        className={isActive}
-        sx={{ background: BASE_COLOR.primary }}
-        onClick={onClick}
-      >
+      <BoxImage className={isActive} onClick={onClick}>
         <Image image={image} />
       </BoxImage>
     </ChannelItem>
@@ -46,6 +44,7 @@ const BoxImage = styled(Box)(({ theme }) => ({
   padding: 5,
   borderRadius: 12,
   boxSizing: "border-box",
+  background: "rgba(255,255,255, .2)",
   "&:hover": {
     "&:before": {
       width: "90%",
@@ -53,6 +52,7 @@ const BoxImage = styled(Box)(({ theme }) => ({
     },
   },
   "&.active": {
+    background: BASE_COLOR.light,
     "&:before": {
       width: "90%",
       height: "90%",
@@ -79,7 +79,6 @@ const BoxImage = styled(Box)(({ theme }) => ({
     top: "50%",
     left: "120%",
     transform: "translateY(-50%)",
-    background: theme,
     borderRadius: 12,
     transition: "0.2s",
   },

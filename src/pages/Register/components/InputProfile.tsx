@@ -9,11 +9,11 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { FormProvider, useForm } from "react-hook-form";
-import InputTextField from "../../../components/Form/InputTextField";
 import LogoImg from "../../../assets/Logo_Light_Basic.png";
 import { useCallback } from "react";
 // import { useNavigateSearch } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
+import { InputTextField } from "../../../components/Form";
 
 interface InputProfileProps {
   userEmail: string;

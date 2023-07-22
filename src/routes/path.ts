@@ -2,6 +2,7 @@ export const PATH = {
   ROOT: '*',
   LOGIN: '/login',
   REGISTER: '/register',
-  HOME_PAGE: '/home',
-  GROUP_CHAT: '/group-chat'
+  GROUP_CHAT: '/group-chat',
+  MEETING: '/meeting',
+  MEETING_ROOM: '/meeting-room',
 };

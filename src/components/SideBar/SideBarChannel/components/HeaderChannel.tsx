@@ -11,6 +11,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AddIcon from "@mui/icons-material/Add";
 import { BASE_COLOR } from "../../../../constants/color";
 import { HeaderChannelProps } from "../../../../types/SideBar";
+import { BASE_SIZE } from "../../../../constants/size";
 
 export const HeaderChannel = ({menuGroupProfile, menuGroupProfileOpen, handleClickMenuGroupChannel, handleCloseMenuGroupChannel}: HeaderChannelProps) => {
   const theme = useTheme();
@@ -57,8 +58,7 @@ export const HeaderChannel = ({menuGroupProfile, menuGroupProfileOpen, handleCli
 
 const HeaderSideBarChannel = styled(Grid)({
   width: "100%",
-  overflowX: "hidden",
-  overflowY: "scroll",
+  height: BASE_SIZE.HEADER_CHANNEL,
   padding: `5px 15px`,
   borderBottom: "1px solid rgba(255,255,255, .2)",
 });

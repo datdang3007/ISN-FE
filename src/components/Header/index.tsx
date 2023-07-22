@@ -7,7 +7,7 @@ export default function Header() {
     <HeaderContainer container>
       <Grid item container xs={11} sm={8}>
         <Grid item xs={3}></Grid>
-        <Grid item container alignItems={'center'} xs>
+        <Grid item container alignItems={"center"} xs>
           <CustomTextField
             fullWidth
             placeholder="Tìm kiếm"
@@ -29,6 +29,7 @@ export default function Header() {
             <CustomAvatar
               src="https://avatars0.githubusercontent.com/u/33479836?v=4"
               alt="profile"
+              variant="rounded"
             ></CustomAvatar>
           </AvatarFrame>
         </Grid>
@@ -89,5 +90,5 @@ const CustomAvatar = styled(Avatar)({
   width: '100%',
   height: '100%',
   boxSizing: 'border-box',
-  border: `1px solid ${BASE_COLOR.primary}`
+  border: `1px solid ${BASE_COLOR.light}`
 });

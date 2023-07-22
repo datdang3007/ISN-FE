@@ -13,8 +13,8 @@ import { ArrowRight } from "@mui/icons-material";
 import { FormProvider, useForm } from "react-hook-form";
 import { useCallback } from "react";
 import { rules } from "../../../components/Form/validation";
-import InputTextField from "../../../components/Form/InputTextField";
 import { useNavigate } from "react-router-dom";
+import { InputTextField } from "../../../components/Form";
 
 interface emailProps {
   user_email: string;

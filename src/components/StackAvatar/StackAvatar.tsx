@@ -5,7 +5,7 @@ export const StackAvatar = () => {
   return (
     <Stack>
       <Stack direction="row">
-        <AvatarGroup max={4}>
+        <AvatarGroup max={4} variant="rounded">
           <CustomAvatar
             src="https://avatars0.githubusercontent.com/u/33479836?v=4"
             alt="profile"
@@ -35,5 +35,5 @@ export const StackAvatar = () => {
 const CustomAvatar = styled(Avatar)({
   cursor: "pointer",
   boxSizing: "border-box",
-  background: BASE_COLOR.dark_gray,
+  background: BASE_COLOR.light_grey,
 });

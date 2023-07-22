@@ -1,8 +1,8 @@
 import { Avatar, Box, Grid, Typography, styled, useTheme } from "@mui/material";
-import { BASE_COLOR } from "../../../constants/color";
 import PublicIcon from "@mui/icons-material/Public";
-import { StackAvatar } from "../../StackAvatar";
 import { useCallback } from "react";
+import { StackAvatar } from "../StackAvatar";
+import { BASE_COLOR } from "../../constants/color";
 
 // const users = [
 //   {
@@ -59,6 +59,7 @@ export const HeaderGroupChat = () => {
               <CustomAvatar
                 src="https://avatars0.githubusercontent.com/u/33479836?v=4"
                 alt="profile"
+                variant="rounded"
               ></CustomAvatar>
             </Box>
             <Typography
@@ -76,14 +77,13 @@ export const HeaderGroupChat = () => {
 
   return (
     <HeaderBar item container alignItems={"center"} xs={12}>
-      {/* {GroupChatLayout()} */}
-      {UserChatLayout()}
+      {GroupChatLayout()}
+      {/* {UserChatLayout()} */}
     </HeaderBar>
   );
 };
 
 const HeaderBar = styled(Grid)({
-  //   background: "red",
   height: "66px",
   maxHeight: "66px",
   padding: "10px 20px",
@@ -101,4 +101,5 @@ const CustomAvatar = styled(Avatar)({
   height: "100%",
   boxSizing: "border-box",
   border: `1px solid ${BASE_COLOR.primary}`,
+  background: BASE_COLOR.light_grey,
 });

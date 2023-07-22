@@ -19,6 +19,7 @@ export const ItemChannelMessage = ({ title, alert }: ItemChannelGroupProps) => {
           <CustomAvatar
             src="https://avatars0.githubusercontent.com/u/33479836?v=4"
             alt="profile"
+            variant="rounded"
           ></CustomAvatar>
         </AvatarFrame>
         <Typography variant="tR15">{title}</Typography>
@@ -79,5 +80,5 @@ const CustomAvatar = styled(Avatar)({
   width: "100%",
   height: "100%",
   boxSizing: "border-box",
-  border: `1px solid ${BASE_COLOR.primary}`,
+  border: `1px solid ${BASE_COLOR.light}`,
 });

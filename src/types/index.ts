@@ -12,3 +12,9 @@ export interface LayoutGroupChatResizeProps {
   children: ReactNode,
   ChatBox: ReactNode,
 }
+
+export interface JoinOrCreateMeetingProps {
+  meetingCode: string,
+  handleChangeMeetingCode: (event: any) => void;
+  handleClickButtonCreateMeeting: () => void;
+}

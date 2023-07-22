@@ -4,8 +4,10 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import { MainLayout } from "../layouts/MainLayout";
 import { ChannelLayout } from "../layouts/ChannelLayout";
-import { GroupChat } from "../components/GroupChat";
 import { GroupLayout } from "../layouts/GroupLayout";
+import GroupChatPage from "../pages/GroupChat";
+import { MeetingPage } from "../pages/Meeting";
+import { MeetingRoom } from "../components/MeetingRoom";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,15 @@ const router = createBrowserRouter([
             children: [
               {
                 path: PATH.GROUP_CHAT,
-                element: <GroupChat />,
+                element: <GroupChatPage />,
+              },
+              {
+                path: PATH.MEETING,
+                element: <MeetingPage />,
+              },
+              {
+                path: PATH.MEETING_ROOM,
+                element: <MeetingRoom />,
               },
             ],
           },

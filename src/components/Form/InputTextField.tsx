@@ -11,7 +11,7 @@ import {
 } from "react-hook-form";
 import { FormHelpText } from "./FormHelpText";
 
-const InputTextField = (
+export const InputTextField = (
   props: InputLabelProps & TextFieldProps & UseControllerProps<FieldValues>
 ) => {
   const { name, control, rules, variant, ...rest } = props;
@@ -28,5 +28,3 @@ const InputTextField = (
     </Grid>
   );
 };
-
-export default InputTextField;

@@ -16,6 +16,22 @@ export const ChannelGroups = () => {
         <Grid item container xs={12} rowGap={5} marginTop={10}>
           <ItemChannelMessage title={"LongVM"} />
           <ItemChannelMessage title={"HungND"} />
+          <ItemChannelMessage title={"LongVM"} />
+          <ItemChannelMessage title={"HungND"} />
+          <ItemChannelMessage title={"LongVM"} />
+          <ItemChannelMessage title={"HungND"} />
+          <ItemChannelMessage title={"LongVM"} />
+          <ItemChannelMessage title={"HungND"} />
+          <ItemChannelMessage title={"LongVM"} />
+          <ItemChannelMessage title={"HungND"} />
+          <ItemChannelMessage title={"LongVM"} />
+          <ItemChannelMessage title={"HungND"} />
+          <ItemChannelMessage title={"LongVM"} />
+          <ItemChannelMessage title={"HungND"} />
+          <ItemChannelMessage title={"LongVM"} />
+          <ItemChannelMessage title={"HungND"} />
+          <ItemChannelMessage title={"LongVM"} />
+          <ItemChannelMessage title={"HungND"} />
         </Grid>
       </ButtonChannelList>
     </GroupContainer>

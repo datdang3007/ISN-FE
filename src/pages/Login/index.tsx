@@ -16,7 +16,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { rules } from "../../components/Form/validation";
 import LogoImg from "../../assets/Logo_Light_Basic.png";
-import InputTextField from "../../components/Form/InputTextField";
+import { InputTextField } from "../../components/Form";
 
 export interface LoginProps {
   user_email: string;

@@ -1,6 +1,7 @@
-import { Grid } from "@mui/material";
-import { LayoutGroupChatResizeProps } from "../../../types";
+import { Grid, styled } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { LayoutGroupChatResizeProps } from "../../types";
+import { BASE_SIZE } from "../../constants/size";
 
 export const LayoutGroupChatResize = (props: LayoutGroupChatResizeProps) => {
   const { Header, children, ChatBox } = props;
@@ -48,22 +49,37 @@ export const LayoutGroupChatResize = (props: LayoutGroupChatResizeProps) => {
     };
   }, [handleChatBoxHeight, handleHeaderHeight]);
 
-  console.log("headerHeight: ", headerHeight);
-  console.log("chatBoxHeight: ", chatBoxHeight);
-
   return (
     <>
       <div ref={divHeaderRef}>{Header}</div>
-      <Grid
+      <ContentContainer
         container
         alignItems={"flex-end"}
         sx={{
-          height: `calc(100% - ${headerHeight}px - ${chatBoxHeight}px)`,
+          height: `calc(100vh - ${headerHeight}px - ${chatBoxHeight}px - ${BASE_SIZE.HEADER}px)`,
         }}
       >
         {children}
-      </Grid>
+      </ContentContainer>
       <div ref={divChatBoxRef}>{ChatBox}</div>
     </>
   );
 };
+
+const ContentContainer = styled(Grid)({
+  overflowX: "unset",
+  overflowY: "auto",
+  scrollbarWidth: "thin",
+  "&::-webkit-scrollbar": {
+    width: "0.4em",
+  },
+  "&::-webkit-scrollbar-track": {
+    background: "#f1f1f1",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#888",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    background: "#555",
+  },
+});

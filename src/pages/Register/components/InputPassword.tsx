@@ -15,9 +15,9 @@ import { ArrowRight, Visibility, VisibilityOff } from "@mui/icons-material";
 import { FormProvider, useForm } from "react-hook-form";
 import { useCallback, useState } from "react";
 import { rules } from "../../../components/Form/validation";
-import InputTextField from "../../../components/Form/InputTextField";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { InputTextField } from "../../../components/Form";
 
 interface UserProps {
   user_email: string;

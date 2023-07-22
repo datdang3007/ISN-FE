@@ -9,9 +9,10 @@ export const SideBarGroup = ({
   return (
     <Group item container xs={12}>
       <Grid item xs={12}>
-        {channelList?.map((item: any) => {
+        {channelList?.map((item: any, index) => {
           return (
             <ItemGroup
+              key={index}
               id={item.id}
               image={item.image}
               isActive={item.active}
