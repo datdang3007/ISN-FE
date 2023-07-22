@@ -9,7 +9,7 @@ import { ThemeProvider } from "@mui/material";
 
 // Socket IO
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "https://isn-server-063f59ef0ea2.herokuapp.com/";
+const ENDPOINT = "https://isn-server-063f59ef0ea2.herokuapp.com";
 export const socket = socketIOClient(ENDPOINT);
 
 const root = ReactDOM.createRoot(
