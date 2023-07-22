@@ -5,8 +5,7 @@ import Peer from "peerjs";
 import { socket } from "../..";
 
 const peer = new Peer({
-  host: "localhost",
-  port: 4000,
+  host: "https://isn-server-063f59ef0ea2.herokuapp.com",
   path: "/peerjs",
   config: {
     iceServers: [
