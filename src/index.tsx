@@ -9,7 +9,7 @@ import { ThemeProvider } from "@mui/material";
 
 // Socket IO
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://localhost:4000";
+const ENDPOINT = process.env.SERVER || "http://localhost:4000";
 export const socket = socketIOClient(ENDPOINT);
 
 const root = ReactDOM.createRoot(
