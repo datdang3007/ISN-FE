@@ -35,12 +35,6 @@ const peer = new Peer({
   debug: 3,
 });
 
-console.log(peer);
-
-// interface UserVideoStreamProps {
-//   videoStreamElement: HTMLVideoElement;
-// }
-
 export function MeetingRoom() {
   const myUserVideo = useRef<HTMLVideoElement>(null);
   const listUserVideoStreamDiv = useRef<HTMLDivElement>(null);
@@ -90,13 +84,7 @@ export function MeetingRoom() {
       peer.on("call", (call) => {
         console.log("Receiving call");
         call.answer(stream);
-        const video = document.createElement("video");
-        video.setAttribute("playsinline", "");
-        video.setAttribute("muted", "");
-        video.setAttribute("autoplay", "");
-        call.on("stream", (userVideoStream: any) => {
-          addVideoStream(video, userVideoStream);
-        });
+        connectToNewUser(call.peer, stream);
       });
 
       socket.on("user-connected", (userId) => {
@@ -104,14 +92,14 @@ export function MeetingRoom() {
       });
     };
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then(navigatorFunction);
-
     peer.on("open", (id) => {
       console.log("my id is:", id);
       socket.emit("join-room", meetingCode, id);
     });
+
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then(navigatorFunction);
 
     return () => {
       navigator.mediaDevices
