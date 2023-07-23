@@ -61,7 +61,7 @@ export function MeetingRoom() {
 
   const connectToNewUser = useCallback(
     (userID: any, stream: any) => {
-      console.log("I call someone" + userID);
+      console.log("I call someone:", userID);
       const call = peer.call(userID, stream);
       const newUserStreamConnected = document.createElement("video");
       newUserStreamConnected.setAttribute("id", userID);
@@ -82,9 +82,16 @@ export function MeetingRoom() {
       addVideoStream(myUserVideo.current, stream);
 
       peer.on("call", (call) => {
-        console.log("Receiving call");
         call.answer(stream);
-        connectToNewUser(call.peer, stream);
+        const newUserStreamConnected = document.createElement("video");
+        newUserStreamConnected.setAttribute("id", call.peer);
+        newUserStreamConnected.setAttribute("playsinline", "");
+        newUserStreamConnected.setAttribute("muted", "");
+        newUserStreamConnected.setAttribute("autoplay", "");
+        call.on("stream", (userVideoStream: MediaStream) => {
+          addVideoStream(newUserStreamConnected, userVideoStream);
+          addElementToList(newUserStreamConnected, call.peer);
+        });
       });
 
       socket.on("user-connected", (userId) => {
