@@ -3,7 +3,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { JoinOrCreateMeeting } from "./JoinOrCreateMeeting";
 import { ListMeetingForYou } from "./ListMeetingForYou";
 import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { PATH } from "../../routes/path";
 import Swal from "sweetalert2";
 
@@ -12,7 +11,6 @@ export interface MeetingProps {
 }
 
 export const Meeting = () => {
-  const navigate = useNavigate();
   const [meetingCode, setMeetingCode] = useState("");
   const methods = useForm<MeetingProps>({
     defaultValues: {
@@ -39,15 +37,12 @@ export const Meeting = () => {
       .then((response) => response.json())
       .then((data) => {
         const responseMeetingCode = data.meetingCode;
-        navigate({
-          pathname: PATH.MEETING_ROOM,
-          search: `?meeting_code=${responseMeetingCode}`,
-        });
+        window.location.href = `https://isn-server-063f59ef0ea2.herokuapp.com${PATH.MEETING_ROOM}?meeting_code=${responseMeetingCode}`;
       })
       .catch((error) => {
         console.error("Lỗi khi gọi API create-meeting:", error);
       });
-  }, [navigate]);
+  }, []);
 
   const onSubmit = methods.handleSubmit(
     useCallback(
@@ -69,10 +64,7 @@ export const Meeting = () => {
           .then((data) => {
             const isMeetingRoomExist = data.isExist;
             if (isMeetingRoomExist) {
-              navigate({
-                pathname: PATH.MEETING_ROOM,
-                search: `?meeting_code=${methodsValueMeetingCode}`,
-              });
+              window.location.href = `https://isn-server-063f59ef0ea2.herokuapp.com${PATH.MEETING_ROOM}?meeting_code=${methodsValueMeetingCode}`;
               return;
             }
             Swal.fire({
@@ -85,7 +77,7 @@ export const Meeting = () => {
             console.error("Lỗi khi gọi API create-meeting:", error);
           });
       },
-      [navigate]
+      []
     )
   );
 
