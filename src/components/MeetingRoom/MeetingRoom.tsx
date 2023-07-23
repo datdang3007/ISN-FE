@@ -5,7 +5,9 @@ import Peer from "peerjs";
 import { socket } from "../..";
 
 const peer = new Peer({
-  host: "https://isn-server-063f59ef0ea2.herokuapp.com",
+  secure: true,
+  host: "isn-server-063f59ef0ea2.herokuapp.com",
+  port: 443,
   path: "/peerjs",
   config: {
     iceServers: [
@@ -32,6 +34,8 @@ const peer = new Peer({
   },
   debug: 3,
 });
+
+console.log(peer);
 
 // interface UserVideoStreamProps {
 //   videoStreamElement: HTMLVideoElement;
