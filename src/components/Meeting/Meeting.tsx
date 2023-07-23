@@ -37,7 +37,7 @@ export const Meeting = () => {
       .then((response) => response.json())
       .then((data) => {
         const responseMeetingCode = data.meetingCode;
-        window.location.href = `https://isn-server-063f59ef0ea2.herokuapp.com${PATH.MEETING_ROOM}?meeting_code=${responseMeetingCode}`;
+        window.location.href = `https://internet-social-network.vercel.app${PATH.MEETING_ROOM}?meeting_code=${responseMeetingCode}`;
       })
       .catch((error) => {
         console.error("Lỗi khi gọi API create-meeting:", error);
@@ -64,7 +64,7 @@ export const Meeting = () => {
           .then((data) => {
             const isMeetingRoomExist = data.isExist;
             if (isMeetingRoomExist) {
-              window.location.href = `https://isn-server-063f59ef0ea2.herokuapp.com${PATH.MEETING_ROOM}?meeting_code=${methodsValueMeetingCode}`;
+              window.location.href = `https://internet-social-network.vercel.app${PATH.MEETING_ROOM}?meeting_code=${methodsValueMeetingCode}`;
               return;
             }
             Swal.fire({
