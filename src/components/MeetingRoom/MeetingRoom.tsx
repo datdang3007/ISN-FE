@@ -49,6 +49,7 @@ export function MeetingRoom() {
   }, []);
 
   const addElementToList = (element: HTMLElement, userID: string) => {
+    console.log(userID);
     if (listUserVideoStreamDiv.current) {
       const isExist = Array.from(
         listUserVideoStreamDiv.current.children
@@ -60,21 +61,32 @@ export function MeetingRoom() {
   };
 
   const connectToNewUser = useCallback(
-    (userID: any, stream: any) => {
-      console.log("I call someone:", userID);
-      const call = peer.call(userID, stream);
+    (peerId: any, userId: any, stream: any) => {
+      console.log("I call someone:", peerId);
+      const call = peer.call(peerId, stream, {
+        metadata: { userId: socket.id },
+      });
       const newUserStreamConnected = document.createElement("video");
-      newUserStreamConnected.setAttribute("id", userID);
+      newUserStreamConnected.setAttribute("id", userId);
       newUserStreamConnected.setAttribute("playsinline", "");
       newUserStreamConnected.setAttribute("muted", "");
       newUserStreamConnected.setAttribute("autoplay", "");
       call.on("stream", (userVideoStream: MediaStream) => {
         addVideoStream(newUserStreamConnected, userVideoStream);
-        addElementToList(newUserStreamConnected, userID);
+        addElementToList(newUserStreamConnected, userId);
       });
     },
     [addVideoStream]
   );
+
+  const userDisconnectEvent = useCallback((userID: any) => {
+    if (listUserVideoStreamDiv.current) {
+      const newListUserVideoStream = Array.from(
+        listUserVideoStreamDiv.current.children
+      ).filter((val) => val.getAttribute("id") !== userID);
+      listUserVideoStreamDiv.current.replaceChildren(...newListUserVideoStream);
+    }
+  }, []);
 
   useEffect(() => {
     const navigatorFunction = (stream: MediaStream) => {
@@ -83,25 +95,33 @@ export function MeetingRoom() {
 
       peer.on("call", (call) => {
         call.answer(stream);
+        console.log(call.metadata);
+        console.log(call.metadata.userId);
         const newUserStreamConnected = document.createElement("video");
-        newUserStreamConnected.setAttribute("id", call.peer);
+        newUserStreamConnected.setAttribute("id", call.metadata.userId);
         newUserStreamConnected.setAttribute("playsinline", "");
         newUserStreamConnected.setAttribute("muted", "");
         newUserStreamConnected.setAttribute("autoplay", "");
         call.on("stream", (userVideoStream: MediaStream) => {
           addVideoStream(newUserStreamConnected, userVideoStream);
-          addElementToList(newUserStreamConnected, call.peer);
+          addElementToList(newUserStreamConnected, call.metadata.userId);
         });
       });
 
-      socket.on("user-connected", (userId) => {
-        connectToNewUser(userId, stream);
+      socket.on("user-connected", (peerId, userId) => {
+        connectToNewUser(peerId, userId, stream);
+      });
+
+      socket.on("user-disconnected", (userId) => {
+        console.log("userDisconnectEvent", userId);
+        userDisconnectEvent(userId);
       });
     };
 
-    peer.on("open", (id) => {
-      console.log("my id is:", id);
-      socket.emit("join-room", meetingCode, id);
+    peer.on("open", (peerId) => {
+      console.log("my id is:", peerId);
+      console.log("socket id is:", socket.id);
+      socket.emit("join-room", meetingCode, peerId, socket.id);
     });
 
     navigator.mediaDevices
@@ -113,7 +133,7 @@ export function MeetingRoom() {
         .getUserMedia({ video: true, audio: true })
         .then(navigatorFunction);
     };
-  }, [addVideoStream, connectToNewUser, meetingCode]);
+  }, [addVideoStream, connectToNewUser, meetingCode, userDisconnectEvent]);
 
   return (
     <Grid container>
