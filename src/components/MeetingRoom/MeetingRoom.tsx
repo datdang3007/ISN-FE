@@ -89,6 +89,12 @@ export function MeetingRoom() {
   }, []);
 
   useEffect(() => {
+    const peerOnOpen = (peerId: string) => {
+      console.log("my id is:", peerId);
+      console.log("socket id is:", socket.id);
+      socket.emit("join-room", meetingCode, peerId, socket.id);
+    };
+
     const navigatorFunction = (stream: MediaStream) => {
       setMyStream(stream);
       addVideoStream(myUserVideo.current, stream);
@@ -118,17 +124,15 @@ export function MeetingRoom() {
       });
     };
 
-    peer.on("open", (peerId) => {
-      console.log("my id is:", peerId);
-      console.log("socket id is:", socket.id);
-      socket.emit("join-room", meetingCode, peerId, socket.id);
-    });
+    peer.on("open", peerOnOpen);
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then(navigatorFunction);
 
     return () => {
+      peer.off("open", peerOnOpen);
+
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: true })
         .then(navigatorFunction);
