@@ -28,7 +28,7 @@ export const Meeting = () => {
   );
 
   const handleClickButtonCreateMeeting = useCallback(() => {
-    fetch("https://isn-server-063f59ef0ea2.herokuapp.com/create-meeting", {
+    fetch("https://isn-be.vercel.app/create-meeting", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,40 +45,34 @@ export const Meeting = () => {
   }, []);
 
   const onSubmit = methods.handleSubmit(
-    useCallback(
-      (values) => {
-        const methodsValueMeetingCode = values.meeting_code;
-        fetch(
-          "https://isn-server-063f59ef0ea2.herokuapp.com/join-meeting-room",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              meetingCode: methodsValueMeetingCode,
-            }),
+    useCallback((values) => {
+      const methodsValueMeetingCode = values.meeting_code;
+      fetch("https://isn-be.vercel.app/join-meeting-room", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          meetingCode: methodsValueMeetingCode,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const isMeetingRoomExist = data.isExist;
+          if (isMeetingRoomExist) {
+            window.location.href = `https://internet-social-network.vercel.app${PATH.MEETING_ROOM}?meeting_code=${methodsValueMeetingCode}`;
+            return;
           }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            const isMeetingRoomExist = data.isExist;
-            if (isMeetingRoomExist) {
-              window.location.href = `https://internet-social-network.vercel.app${PATH.MEETING_ROOM}?meeting_code=${methodsValueMeetingCode}`;
-              return;
-            }
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: "Mã phòng họp không tồn tại!",
-            });
-          })
-          .catch((error) => {
-            console.error("Lỗi khi gọi API create-meeting:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Mã phòng họp không tồn tại!",
           });
-      },
-      []
-    )
+        })
+        .catch((error) => {
+          console.error("Lỗi khi gọi API create-meeting:", error);
+        });
+    }, [])
   );
 
   return (

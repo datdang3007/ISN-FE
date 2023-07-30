@@ -6,7 +6,7 @@ import { socket } from "../..";
 
 const peer = new Peer({
   secure: true,
-  host: "isn-server-063f59ef0ea2.herokuapp.com",
+  host: "https://isn-be.vercel.app",
   port: 443,
   path: "/peerjs",
   config: {
