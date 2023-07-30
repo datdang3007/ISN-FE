@@ -7,7 +7,6 @@ import { socket } from "../..";
 const peer = new Peer({
   secure: true,
   host: "https://isn-be.glitch.me",
-  port: 3000,
   path: "/peerjs",
   config: {
     iceServers: [
