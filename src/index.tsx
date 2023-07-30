@@ -9,7 +9,7 @@ import { ThemeProvider } from "@mui/material";
 
 // Socket IO
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "https://isn-be.vercel.app/";
+const ENDPOINT = "https://isn-be.glitch.me/";
 export const socket = socketIOClient(ENDPOINT);
 
 const root = ReactDOM.createRoot(

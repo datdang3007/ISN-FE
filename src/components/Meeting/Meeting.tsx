@@ -28,7 +28,7 @@ export const Meeting = () => {
   );
 
   const handleClickButtonCreateMeeting = useCallback(() => {
-    fetch("https://isn-be.vercel.app/create-meeting", {
+    fetch("https://isn-be.glitch.me/create-meeting", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export const Meeting = () => {
   const onSubmit = methods.handleSubmit(
     useCallback((values) => {
       const methodsValueMeetingCode = values.meeting_code;
-      fetch("https://isn-be.vercel.app/join-meeting-room", {
+      fetch("https://isn-be.glitch.me/join-meeting-room", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
